@@ -17,4 +17,4 @@ An n8n workflow that scrapes Google Maps for “cafe” listings in Bangkok usin
 
 **File Structure:**  
 - `Basic_Google_Maps_Scraper.json` (n8n workflow definition)  
-- `README.md` (this file)
+- `README.md` 
