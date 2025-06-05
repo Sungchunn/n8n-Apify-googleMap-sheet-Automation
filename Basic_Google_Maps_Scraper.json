@@ -1,0 +1,4737 @@
+{
+  "name": "Basic Google Maps Scraper",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        100
+      ],
+      "id": "855957ed-8d08-4486-b3ce-fba817b02e14",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://api.apify.com/v2/acts/lukaskrivka~google-maps-with-contact-details/run-sync-get-dataset-items?token=apify_api_vP2sFh6bZ2lSwsfsbGPMnZWJNdGaIl1dLe5U",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"language\": \"en\",\n    \"locationQuery\": \"{{ $json.location }}\",\n    \"maxCrawledPlacesPerSearch\": 25,\n    \"searchStringsArray\": [\n        \"{{ $json.query }}\"\n    ],\n    \"skipClosedPlaces\": false\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -220,
+        -100
+      ],
+      "id": "c0937e2a-c5f3-4fd7-b823-61022887f822",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "scrapedAt, title, reviewsDistribution.fiveStar, reviewsCount, openingHours[6].hours, address, city, phone, reviewsDistribution.fiveStar, isAdvertisement, url, reviewsDistribution.fiveStar",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        40,
+        -100
+      ],
+      "id": "e46aa60a-8e98-4cb5-8fd6-1f394dabb832",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1N6oXe6wnel484J8D_oDowJgE7GwCU0AC5fx-HhEyR1c",
+          "mode": "list",
+          "cachedResultName": "Google Map: Cafe in Bangkok",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1N6oXe6wnel484J8D_oDowJgE7GwCU0AC5fx-HhEyR1c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1N6oXe6wnel484J8D_oDowJgE7GwCU0AC5fx-HhEyR1c/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "reviewsDistribution.fiveStar",
+              "displayName": "reviewsDistribution.fiveStar",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "reviewsCount",
+              "displayName": "reviewsCount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "openingHours[6].hours",
+              "displayName": "openingHours[6].hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "address",
+              "displayName": "address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "isAdvertisement",
+              "displayName": "isAdvertisement",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "scrapedAt",
+              "displayName": "scrapedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        260,
+        -100
+      ],
+      "id": "18db4e7c-347e-4522-988b-689b0114e3a9",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "UhQJjaPCFJLOJFVT",
+          "name": "Youtube Tutorial "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                5
+              ],
+              "triggerAtHour": 6
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -460,
+        -100
+      ],
+      "id": "f3730df8-3dbf-44b8-8187-04ecce1ce1d4",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "content": "## Google maps Scraper \n**Source**  [Youtube](https://www.youtube.com/watch?v=IHPgoqyZFB8)",
+        "height": 100,
+        "width": 500
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -300,
+        -260
+      ],
+      "id": "040430d0-f495-41ac-b566-09df2e95207f",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {
+    "When clicking ‘Execute workflow’": [
+      {
+        "json": {
+          "query": [
+            "cafe",
+            "Cafe"
+          ],
+          "location": [
+            "Bangkok",
+            "BKK",
+            "bkk",
+            "Bangkok, Thailand",
+            "Krung Thep",
+            "Krung Thep Maha Nakhon",
+            "Krung Thep Mahanakhon",
+            "กรุงเทพมหานคร",
+            "กรุงเทพฯ",
+            "กรุงเทพ",
+            "Bangkok Metropolis",
+            "City of Angels",
+            "Bangkok City",
+            "Bangkok TH",
+            "Krung Thep City",
+            "Krop Thip Maha Nakhon",
+            "Krungthep",
+            "Krungthepmahakanakhon"
+          ]
+        }
+      }
+    ],
+    "HTTP Request": [
+      {
+        "json": {
+          "title": "LittleBoxCafe",
+          "price": null,
+          "categoryName": "Coffee shop",
+          "address": "125/139 ม.ตะวันทอง2 Thanon Liap Khlong Phasi Charoen Fang Tai, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "125/139 ม.ตะวันทอง2 Thanon Liap Khlong Phasi Charoen Fang Tai",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "phone": "+66 86 381 8479",
+          "phoneUnformatted": "+66863818479",
+          "claimThisBusiness": false,
+          "location": {
+            "lat": 13.6836623,
+            "lng": 100.3663161
+          },
+          "totalScore": 5,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJfWHSDw694jAR4-ntfjcUeKY",
+          "categories": [
+            "Coffee shop"
+          ],
+          "fid": "0x30e2bd0e0fd2617d:0xa67814377eede9e3",
+          "cid": "11995359836086594019",
+          "reviewsCount": 8,
+          "reviewsDistribution": {
+            "oneStar": 0,
+            "twoStar": 0,
+            "threeStar": 0,
+            "fourStar": 0,
+            "fiveStar": 8
+          },
+          "imagesCount": 5,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:19.993Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "8 AM to 5 PM"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "8 AM to 5 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "8 AM to 5 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "8 AM to 5 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "8 AM to 5 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "8 AM to 5 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "8 AM to 5 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great dessert": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Popular for": [
+              {
+                "Solo dining": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              }
+            ],
+            "Dining options": [
+              {
+                "Dessert": true
+              }
+            ],
+            "Amenities": [
+              {
+                "Restroom": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              },
+              {
+                "Trendy": true
+              }
+            ],
+            "Crowd": [
+              {
+                "College students": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=LittleBoxCafe&query_place_id=ChIJfWHSDw694jAR4-ntfjcUeKY",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 45,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nori0oGbC7aAuMQuwMgzdUKw9ZjmUEyuDe9l4T65ZVexjZRP5hj0nJX12Ohbgn488tYMAkLLfm7GSPixPsvYl8hSmVL5xI6R9chv_HbtNXuCrKnvGNjT4pwYJFOaNbXyYDc07EdJQ=w408-h544-k-no",
+          "kgmid": "/g/11lk1jlgb2",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "ต้นสน ลอฟต์",
+          "price": null,
+          "categoryName": "Cafe",
+          "address": "M8HX+WRJ, Khwaeng Nong Khaem, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "M8HX+WRJ",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "phone": "+66 89 982 6090",
+          "phoneUnformatted": "+66899826090",
+          "claimThisBusiness": true,
+          "location": {
+            "lat": 13.679849,
+            "lng": 100.3495055
+          },
+          "totalScore": 4.3,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJ15GhRmu_4jARGPlMOia-TSI",
+          "categories": [
+            "Cafe"
+          ],
+          "fid": "0x30e2bf6b46a191d7:0x224dbe263a4cf918",
+          "cid": "2471840841892428056",
+          "reviewsCount": 31,
+          "reviewsDistribution": {
+            "oneStar": 0,
+            "twoStar": 1,
+            "threeStar": 4,
+            "fourStar": 12,
+            "fiveStar": 14
+          },
+          "imagesCount": 68,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:19.993Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "Closed"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "8 AM to 2 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "8 AM to 2 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "8 AM to 2 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "8 AM to 2 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "8 AM to 4 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "8 AM to 4 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great dessert": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Popular for": [
+              {
+                "Solo dining": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              }
+            ],
+            "Dining options": [
+              {
+                "Dessert": true
+              }
+            ],
+            "Amenities": [
+              {
+                "Restroom": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              },
+              {
+                "Trendy": true
+              }
+            ],
+            "Crowd": [
+              {
+                "Groups": true
+              }
+            ],
+            "Children": [
+              {
+                "Good for kids": true
+              },
+              {
+                "Kids' menu": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=%E0%B8%95%E0%B9%89%E0%B8%99%E0%B8%AA%E0%B8%99%20%E0%B8%A5%E0%B8%AD%E0%B8%9F%E0%B8%95%E0%B9%8C&query_place_id=ChIJ15GhRmu_4jARGPlMOia-TSI",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 44,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4np7zHWnQ7qiFQiSyEahIaNoWK7Z7CzzSuTisiYyyZOEImV6Gy_6nkVUi7SSNtys94gDyVTjUyFdKPDIB9__iu1tQnFmBmvOy1Tr8FXLa2Wdb1QcGkngFWHaATk5wXOyRebVvpOv7A=w408-h544-k-no",
+          "kgmid": "/g/11g4l4qw6r",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "Mellow Coffee House",
+          "price": null,
+          "categoryName": "Coffee shop",
+          "address": "60/97 Soi 10, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "60/97 Soi 10",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "phone": "+66 91 856 8732",
+          "phoneUnformatted": "+66918568732",
+          "claimThisBusiness": true,
+          "location": {
+            "lat": 13.6782001,
+            "lng": 100.3566097
+          },
+          "totalScore": 5,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJP6AVIgC94jAR4IDlej9x4ew",
+          "categories": [
+            "Coffee shop"
+          ],
+          "fid": "0x30e2bd002215a03f:0xece1713f7ae580e0",
+          "cid": "17069048580169629920",
+          "reviewsCount": 1,
+          "reviewsDistribution": {
+            "oneStar": 0,
+            "twoStar": 0,
+            "threeStar": 0,
+            "fourStar": 0,
+            "fiveStar": 1
+          },
+          "imagesCount": 8,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:19.993Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "6 AM to 10 PM"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "6 AM to 10 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "6 AM to 10 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "6 AM to 10 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "6 AM to 10 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "6 AM to 10 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "6 AM to 10 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Offerings": [
+              {
+                "Coffee": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=Mellow%20Coffee%20House&query_place_id=ChIJP6AVIgC94jAR4IDlej9x4ew",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 41,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4noZn3XHZqtRBnNwRhh2cG1FeCn1eIFLIjS3mgJgDwmjYIvjJTbdpFYulw38i3Q0UOvTmg97_awz-gX6oLU4WKXq9oV_Y5Lt2ITNWuWJQb707PjXHOYpJAKGwH29Dv_s6IV8Y51Tw7xjvbcl=w408-h544-k-no",
+          "kgmid": "/g/11x71krcl2",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "โกปี๊ สยาม เพชรเกษม 81",
+          "price": null,
+          "categoryName": "Coffee shop",
+          "address": "152 Bang Bon 5 Rd, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "152 Bang Bon 5 Rd",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "phone": "+66 86 908 6888",
+          "phoneUnformatted": "+66869086888",
+          "claimThisBusiness": true,
+          "location": {
+            "lat": 13.677082,
+            "lng": 100.3454318
+          },
+          "totalScore": 5,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJhfD1DTu_4jAR99fLmvq505k",
+          "categories": [
+            "Coffee shop"
+          ],
+          "fid": "0x30e2bf3b0df5f085:0x99d3b9fa9acbd7f7",
+          "cid": "11084407593878935543",
+          "reviewsCount": 1,
+          "reviewsDistribution": {
+            "oneStar": 0,
+            "twoStar": 0,
+            "threeStar": 0,
+            "fourStar": 0,
+            "fiveStar": 1
+          },
+          "imagesCount": 3,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:19.091Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "9 AM to 7:45 PM"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "9 AM to 7:45 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "9 AM to 7:45 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "9 AM to 7:45 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "9 AM to 7:45 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "9 AM to 7:45 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "9 AM to 7:45 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              }
+            ],
+            "Amenities": [
+              {
+                "Restroom": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=%E0%B9%82%E0%B8%81%E0%B8%9B%E0%B8%B5%E0%B9%8A%20%E0%B8%AA%E0%B8%A2%E0%B8%B2%E0%B8%A1%20%E0%B9%80%E0%B8%9E%E0%B8%8A%E0%B8%A3%E0%B9%80%E0%B8%81%E0%B8%A9%E0%B8%A1%2081&query_place_id=ChIJhfD1DTu_4jAR99fLmvq505k",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 38,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqsAx4bNBpbzayE0lLwLQKkd76xXgn5a0QmEjxwgjH2up87-LVprrmQo9LTjUf_MWLtClD85SXpiZ_ksM2ov4o6aXVc3bNdvg_kmKwE_KkX1DPn4Q-NF7LDl15NcgOA0R8A9IzW=w426-h240-k-no",
+          "kgmid": "/g/11stzsfch8",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "2am homeCafe",
+          "price": null,
+          "categoryName": "Coffee shop",
+          "address": "28/108 Phet Kasem, Nong Khang Phlu, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khang Phlu",
+          "street": "28/108 Phet Kasem",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "phone": "+66 90 975 3248",
+          "phoneUnformatted": "+66909753248",
+          "claimThisBusiness": false,
+          "location": {
+            "lat": 13.7024696,
+            "lng": 100.3667423
+          },
+          "totalScore": 4.8,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJwR-uHJWX4jART7vjcU28SWI",
+          "categories": [
+            "Coffee shop"
+          ],
+          "fid": "0x30e297951cae1fc1:0x6249bc4d71e3bb4f",
+          "cid": "7082398929826069327",
+          "reviewsCount": 32,
+          "reviewsDistribution": {
+            "oneStar": 0,
+            "twoStar": 0,
+            "threeStar": 0,
+            "fourStar": 6,
+            "fiveStar": 26
+          },
+          "imagesCount": 139,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:19.091Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "7:30 AM to 4 PM"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "7:30 AM to 4 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "7:30 AM to 4 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "7:30 AM to 4 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "7:30 AM to 4 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "9:30 AM to 4 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "Closed"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great dessert": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Popular for": [
+              {
+                "Solo dining": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Alcohol": true
+              },
+              {
+                "Beer": true
+              },
+              {
+                "Coffee": true
+              }
+            ],
+            "Dining options": [
+              {
+                "Breakfast": true
+              },
+              {
+                "Brunch": true
+              },
+              {
+                "Lunch": true
+              },
+              {
+                "Dessert": true
+              },
+              {
+                "Seating": true
+              }
+            ],
+            "Amenities": [
+              {
+                "Gender-neutral restroom": true
+              },
+              {
+                "Restroom": true
+              },
+              {
+                "Wi-Fi": true
+              },
+              {
+                "Free Wi-Fi": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              },
+              {
+                "Quiet": true
+              },
+              {
+                "Trendy": true
+              }
+            ],
+            "Crowd": [
+              {
+                "Family-friendly": true
+              },
+              {
+                "Groups": true
+              },
+              {
+                "LGBTQ+ friendly": true
+              },
+              {
+                "Transgender safespace": true
+              }
+            ],
+            "Planning": [
+              {
+                "Accepts reservations": false
+              }
+            ],
+            "Payments": [
+              {
+                "NFC mobile payments": true
+              }
+            ],
+            "Children": [
+              {
+                "Good for kids": true
+              },
+              {
+                "Kids' menu": true
+              }
+            ],
+            "Parking": [
+              {
+                "Free parking lot": true
+              },
+              {
+                "On-site parking": true
+              }
+            ],
+            "Pets": [
+              {
+                "Dogs allowed outside": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=2am%20homeCafe&query_place_id=ChIJwR-uHJWX4jART7vjcU28SWI",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 34,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4noe-cgCBa31z2WyJ86VH2JFJ_yxpWFFRrN5vJTtzHL6D8nRHBVg2X367AdkJFkjRc-N4JR7FYErsrfOORAt5xESj2nDnrcpKULvrzM72bJl4pB_neNQIHCsGI3yImpymy6cS_5t=w408-h278-k-no",
+          "kgmid": "/g/11kjrvcpzm",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "HANA Coffee & Cactus Garden",
+          "price": null,
+          "categoryName": "Coffee shop",
+          "address": "HANA Coffee & Cactus Garden เพชรเกษม77 Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "HANA Coffee & Cactus Garden เพชรเกษม77",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "phone": "+66 86 663 6792",
+          "phoneUnformatted": "+66866636792",
+          "claimThisBusiness": false,
+          "location": {
+            "lat": 13.6922671,
+            "lng": 100.3519409
+          },
+          "totalScore": 5,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJB6mqW_S94jAR-tMabd7P0as",
+          "categories": [
+            "Coffee shop"
+          ],
+          "fid": "0x30e2bdf45baaa907:0xabd1cfde6d1ad3fa",
+          "cid": "12380905404838368250",
+          "reviewsCount": 26,
+          "reviewsDistribution": {
+            "oneStar": 0,
+            "twoStar": 0,
+            "threeStar": 0,
+            "fourStar": 0,
+            "fiveStar": 26
+          },
+          "imagesCount": 48,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:19.091Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "8:30 AM to 3 PM"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "8:30 AM to 3 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "8:30 AM to 3 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "8:30 AM to 3 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "8:30 AM to 3 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "8:30 AM to 3 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "8:30 AM to 3 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Curbside pickup": true
+              },
+              {
+                "No-contact delivery": true
+              },
+              {
+                "Delivery": true
+              },
+              {
+                "Drive-through": true
+              },
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great dessert": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              }
+            ],
+            "Dining options": [
+              {
+                "Dessert": true
+              }
+            ],
+            "Amenities": [
+              {
+                "Restroom": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              },
+              {
+                "Quiet": true
+              },
+              {
+                "Trendy": true
+              }
+            ],
+            "Children": [
+              {
+                "Good for kids": true
+              }
+            ],
+            "Parking": [
+              {
+                "Free parking lot": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=HANA%20Coffee%20%26%20Cactus%20Garden&query_place_id=ChIJB6mqW_S94jAR-tMabd7P0as",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 32,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nowAZpi8WfboaiQyyRnHH-JpLdVqgueYQApLRWqNQy0ZW8yQImL2Dz_-oD-BNCXsOnrDedNv2pa5RafUOeoQ8GIzUI2V3iygEqOcc_c2ByxTP-b9Ohjvj7Wj_zsDibwRIKS0hV9=w408-h306-k-no",
+          "kgmid": "/g/11v0gb0pfd",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "Scooty Coffee : Street slow bar",
+          "price": null,
+          "categoryName": "Coffee shop",
+          "address": "100 Thanon Liap Khlong Phasi Charoen Fang Nuea, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "100 Thanon Liap Khlong Phasi Charoen Fang Nuea",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "phone": "+66 95 538 5858",
+          "phoneUnformatted": "+66955385858",
+          "claimThisBusiness": true,
+          "location": {
+            "lat": 13.6901348,
+            "lng": 100.3712598
+          },
+          "totalScore": 5,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJzTobnFi94jARoFfKayF_ZNY",
+          "categories": [
+            "Coffee shop"
+          ],
+          "fid": "0x30e2bd589c1b3acd:0xd6647f216bca57a0",
+          "cid": "15448612403306715040",
+          "reviewsCount": 8,
+          "reviewsDistribution": {
+            "oneStar": 0,
+            "twoStar": 0,
+            "threeStar": 0,
+            "fourStar": 0,
+            "fiveStar": 8
+          },
+          "imagesCount": 15,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:19.090Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "Closed"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "Closed"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "Closed"
+            },
+            {
+              "day": "Thursday",
+              "hours": "Closed"
+            },
+            {
+              "day": "Friday",
+              "hours": "Closed"
+            },
+            {
+              "day": "Saturday",
+              "hours": "10:30 AM to 4:30 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "10:30 AM to 4:30 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Delivery": true
+              },
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              }
+            ],
+            "Crowd": [
+              {
+                "Groups": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=Scooty%20Coffee%20%3A%20Street%20slow%20bar&query_place_id=ChIJzTobnFi94jARoFfKayF_ZNY",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 30,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nq20NUlHpr-I4tZq5QBuLnjCKEReBUCH3bH75L-MTNwCyoQCYfUDs68_zNdNDj_NXpLGpmhZwWkKLxK7kJ3NQBxJk4C2ZIptqsggoUyiBttqQ7Sr8VrXzFvyf8RnVXZLc8phxHZsw=w408-h612-k-no",
+          "kgmid": "/g/11sgcxt4t4",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "BenCoffee",
+          "price": null,
+          "categoryName": "Cafe",
+          "address": "976 Phet Kasem 81 Rd, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "976 Phet Kasem 81 Rd",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "website": "https://www.facebook.com/BennyCoffees/",
+          "phone": "+66 92 299 7962",
+          "phoneUnformatted": "+66922997962",
+          "claimThisBusiness": false,
+          "location": {
+            "lat": 13.6716605,
+            "lng": 100.3471287
+          },
+          "totalScore": 4.8,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJRVib4hi_4jARUP4QE7IRvUA",
+          "categories": [
+            "Cafe"
+          ],
+          "fid": "0x30e2bf18e29b5845:0x40bd11b21310fe50",
+          "cid": "4664904245547433552",
+          "reviewsCount": 44,
+          "reviewsDistribution": {
+            "oneStar": 1,
+            "twoStar": 0,
+            "threeStar": 1,
+            "fourStar": 3,
+            "fiveStar": 39
+          },
+          "imagesCount": 163,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:19.090Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "7:30 AM to 7 PM"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "Closed"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "7:30 AM to 7 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "7:30 AM to 7 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "7:30 AM to 7 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "7:30 AM to 6 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "7:30 AM to 6 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "No-contact delivery": true
+              },
+              {
+                "Delivery": true
+              },
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great dessert": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Popular for": [
+              {
+                "Solo dining": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              },
+              {
+                "Quick bite": true
+              },
+              {
+                "Small plates": true
+              }
+            ],
+            "Dining options": [
+              {
+                "Lunch": true
+              },
+              {
+                "Dinner": true
+              },
+              {
+                "Dessert": true
+              }
+            ],
+            "Amenities": [
+              {
+                "Restroom": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              },
+              {
+                "Trendy": true
+              }
+            ],
+            "Crowd": [
+              {
+                "Groups": true
+              }
+            ],
+            "Children": [
+              {
+                "Good for kids": true
+              },
+              {
+                "Kids' menu": true
+              }
+            ],
+            "Parking": [
+              {
+                "Free parking garage": true
+              },
+              {
+                "Free parking lot": true
+              },
+              {
+                "Free street parking": true
+              }
+            ],
+            "Pets": [
+              {
+                "Dogs allowed outside": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=BenCoffee&query_place_id=ChIJRVib4hi_4jARUP4QE7IRvUA",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 24,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4npWYp472YCVWtjmztiwT2X4S92UEGIPZ28dU3TnOMHVPWHg5Rmf-5WhhQTSacCaiFbv39DpuPThQXEIL3-YaESwAzSvZ7Eh3DVCt0CW7CQn2hrdHzDhxbV0d-A8Z7TpN6LT1QeD=w408-h306-k-no",
+          "kgmid": "/g/11r3c9xgq0",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "2wiceaday",
+          "price": null,
+          "categoryName": "Cafe",
+          "address": "28/92 ถนนมาเจริญ (ซ.เพชรเกษม81) Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "28/92 ถนนมาเจริญ (ซ.เพชรเกษม81)",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "website": "https://www.facebook.com/2wiceAday",
+          "phone": "+66 89 776 2595",
+          "phoneUnformatted": "+66897762595",
+          "claimThisBusiness": true,
+          "location": {
+            "lat": 13.6856727,
+            "lng": 100.3431127
+          },
+          "totalScore": 5,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJtbMH6ky_4jAR8caR7_kIZYQ",
+          "categories": [
+            "Cafe",
+            "Ice cream shop"
+          ],
+          "fid": "0x30e2bf4cea07b3b5:0x846508f9ef91c6f1",
+          "cid": "9540041255213450993",
+          "reviewsCount": 11,
+          "imagesCount": 40,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:18.174Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "Closed"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "Closed"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "11 AM to 8 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "11 AM to 8 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "11 AM to 8 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "11 AM to 8 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "11 AM to 8 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Delivery": true
+              },
+              {
+                "Onsite services": true
+              },
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great dessert": true
+              }
+            ],
+            "Popular for": [
+              {
+                "Solo dining": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              },
+              {
+                "Quick bite": true
+              }
+            ],
+            "Dining options": [
+              {
+                "Dessert": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              }
+            ],
+            "Children": [
+              {
+                "Good for kids": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=2wiceaday&query_place_id=ChIJtbMH6ky_4jAR8caR7_kIZYQ",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 20,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqIoIbLhEVa3OcEwr5Tc7xOjp6ib4XZDxoNmGDZ_7NFqr42FUDrVSw9GteGea2_tobc4v5oVEQxJrdFw2KVqG8R5jch2XSH8OqOm4EelCR0tur0sTzD7h_VhOuvxy5qH0s8m2c=w408-h306-k-no",
+          "kgmid": "/g/11jcm6htcx",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "Natchira Café since 2006",
+          "price": "฿1–100",
+          "categoryName": "Cafe",
+          "address": "361 Phet Kasem 81 Rd, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "361 Phet Kasem 81 Rd",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "website": "http://www.facebook.com/Natchiracafe2006",
+          "phone": "+66 82 662 9789",
+          "phoneUnformatted": "+66826629789",
+          "claimThisBusiness": false,
+          "location": {
+            "lat": 13.6754676,
+            "lng": 100.3457215
+          },
+          "totalScore": 4.2,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJn8mYcgu-4jARH6T-S5RqM9g",
+          "categories": [
+            "Cafe"
+          ],
+          "fid": "0x30e2be0b7298c99f:0xd8336a944bfea41f",
+          "cid": "15578912721167361055",
+          "reviewsCount": 31,
+          "imagesCount": 51,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:18.174Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "7 AM to 5 PM"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "7 AM to 5 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "7 AM to 5 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "7 AM to 5 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "7 AM to 5 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "7 AM to 5 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "7 AM to 5 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Curbside pickup": true
+              },
+              {
+                "Delivery": true
+              },
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great dessert": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Popular for": [
+              {
+                "Solo dining": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              }
+            ],
+            "Dining options": [
+              {
+                "Breakfast": true
+              },
+              {
+                "Dessert": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              },
+              {
+                "Trendy": true
+              }
+            ],
+            "Crowd": [
+              {
+                "Groups": true
+              }
+            ],
+            "Planning": [
+              {
+                "Accepts reservations": true
+              }
+            ],
+            "Children": [
+              {
+                "Good for kids": true
+              },
+              {
+                "Kids' menu": true
+              }
+            ],
+            "Parking": [
+              {
+                "Free parking lot": true
+              },
+              {
+                "Free street parking": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=Natchira%20Caf%C3%A9%20since%202006&query_place_id=ChIJn8mYcgu-4jARH6T-S5RqM9g",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 19,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/p/AF1QipNuW1erHMN2182cHdKUKT2ohPYauqH6U8QQr2Kg=w630-h240-k-no",
+          "kgmid": "/g/11dfq573zl",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "EDEN'S DIARY Land of Healthy Food and Drink",
+          "price": null,
+          "categoryName": "Cafe",
+          "address": "Macharoen, Ma Charoen Road, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "Macharoen, Ma Charoen Road",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "phone": "+66 88 995 5945",
+          "phoneUnformatted": "+66889955945",
+          "claimThisBusiness": true,
+          "location": {
+            "lat": 13.6891736,
+            "lng": 100.3460584
+          },
+          "totalScore": 5,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJtc30HLm_4jARYbcPK184mDg",
+          "categories": [
+            "Cafe"
+          ],
+          "fid": "0x30e2bfb91cf4cdb5:0x3898385f2b0fb761",
+          "cid": "4078071443979482977",
+          "reviewsCount": 1,
+          "imagesCount": 1,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:18.174Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "6 AM to 9 PM"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "6 AM to 9 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "6 AM to 9 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "6 AM to 9 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "6 AM to 9 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "6 AM to 9 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "6 AM to 9 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Curbside pickup": true
+              },
+              {
+                "Delivery": true
+              },
+              {
+                "Drive-through": true
+              },
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              }
+            ],
+            "Dining options": [
+              {
+                "Lunch": true
+              },
+              {
+                "Dessert": true
+              }
+            ],
+            "Amenities": [
+              {
+                "Restroom": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              }
+            ],
+            "Crowd": [
+              {
+                "Groups": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=EDEN'S%20DIARY%20Land%20of%20Healthy%20Food%20and%20Drink&query_place_id=ChIJtc30HLm_4jARYbcPK184mDg",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 18,
+          "isAdvertisement": false,
+          "imageUrl": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=-hu5ZHdQD2mJMeZtkuSYUA&cb_client=search.gws-prod.gps&w=408&h=240&yaw=251.26889&pitch=0&thumbfov=100",
+          "kgmid": "/g/11sjz3mhp9",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "โรตีปังปิ้ง เดอะคาเฟ่ (Original) | Rotipangping the CAFE’",
+          "price": "฿100–200",
+          "categoryName": "Restaurant",
+          "address": "28/34 โครงการสิริ, Phet Kasem 81 Rd, หนองแขม, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "หนองแขม",
+          "street": "28/34 โครงการสิริ, Phet Kasem 81 Rd",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "phone": "+66 98 226 2369",
+          "phoneUnformatted": "+66982262369",
+          "claimThisBusiness": false,
+          "location": {
+            "lat": 13.6841079,
+            "lng": 100.3435788
+          },
+          "totalScore": 4.5,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJ20AMqku_4jAReuUuJN_vVL0",
+          "categories": [
+            "Restaurant"
+          ],
+          "fid": "0x30e2bf4baa0c40db:0xbd54efdf242ee57a",
+          "cid": "13642792912875873658",
+          "reviewsCount": 24,
+          "imagesCount": 61,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:18.174Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "11 AM to 10 PM"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "11 AM to 10 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "11 AM to 10 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "11 AM to 10 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "11 AM to 11 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "11 AM to 11 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "11 AM to 10 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "No-contact delivery": true
+              },
+              {
+                "Delivery": true
+              },
+              {
+                "Drive-through": true
+              },
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Popular for": [
+              {
+                "Lunch": true
+              },
+              {
+                "Dinner": true
+              },
+              {
+                "Solo dining": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Small plates": true
+              }
+            ],
+            "Dining options": [
+              {
+                "Lunch": true
+              },
+              {
+                "Dinner": true
+              },
+              {
+                "Dessert": true
+              }
+            ],
+            "Amenities": [
+              {
+                "Restroom": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              }
+            ],
+            "Crowd": [
+              {
+                "Groups": true
+              }
+            ],
+            "Children": [
+              {
+                "Good for kids": true
+              }
+            ],
+            "Parking": [
+              {
+                "Free parking garage": true
+              },
+              {
+                "Free parking lot": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=%E0%B9%82%E0%B8%A3%E0%B8%95%E0%B8%B5%E0%B8%9B%E0%B8%B1%E0%B8%87%E0%B8%9B%E0%B8%B4%E0%B9%89%E0%B8%87%20%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%B0%E0%B8%84%E0%B8%B2%E0%B9%80%E0%B8%9F%E0%B9%88%20(Original)%20%7C%20Rotipangping%20the%20CAFE%E2%80%99&query_place_id=ChIJ20AMqku_4jAReuUuJN_vVL0",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 17,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4npQpbzprkZIzUN3jyRt9xvzersxDkZu2Tms41Ubjay5XD7RLDbY7xhLe9DjNHSDSpzKFWcneFxvugXWKAFuc0ylSrtRWZ3NGIK-FLn6Lcw7Qjb-E4e4Win1zMZ_h5GztXMvSwL_=w408-h306-k-no",
+          "kgmid": "/g/11srbnrskd",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "DIN Cafe' ดินคาเฟ่",
+          "price": null,
+          "categoryName": "Coffee shop",
+          "address": "95 Phet Kasem 81, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "95 Phet Kasem 81",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "claimThisBusiness": true,
+          "location": {
+            "lat": 13.6859534,
+            "lng": 100.3434616
+          },
+          "totalScore": 5,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJ7-KbTYa_4jARoQWk4NnqvTo",
+          "categories": [
+            "Coffee shop"
+          ],
+          "fid": "0x30e2bf864d9be2ef:0x3abdead9e0a405a1",
+          "cid": "4232797446295782817",
+          "reviewsCount": 3,
+          "imagesCount": 4,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:18.174Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "9 AM to 7 PM"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "9 AM to 7 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "9 AM to 7 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "9 AM to 7 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "9 AM to 7 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "9 AM to 7 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "9 AM to 7 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great dessert": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              }
+            ],
+            "Dining options": [
+              {
+                "Dessert": true
+              }
+            ],
+            "Amenities": [
+              {
+                "Restroom": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=DIN%20Cafe'%20%E0%B8%94%E0%B8%B4%E0%B8%99%E0%B8%84%E0%B8%B2%E0%B9%80%E0%B8%9F%E0%B9%88&query_place_id=ChIJ7-KbTYa_4jARoQWk4NnqvTo",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 16,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4noQ__h5pQP4SbEr0ba1Qjd0xmDCWo93V5qbSDvQeSC70ctug_d3LXBJcXYvo05gXFgEgU3ZmNlleU09FEexRSpBpyIra42RVO_9uqT526UqjQsF5IJQIjAKz3CWj393YIejw_m8=w408-h544-k-no",
+          "kgmid": "/g/11kqhqgdyp",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "พันธุ์ไทย สาขาเลียบคลองภาษีฝั่งใต้",
+          "price": null,
+          "categoryName": "Coffee shop",
+          "address": "6 Heha Alley, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "6 Heha Alley",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "phone": "+66 62 197 8712",
+          "phoneUnformatted": "+66621978712",
+          "claimThisBusiness": true,
+          "location": {
+            "lat": 13.6821459,
+            "lng": 100.3597427
+          },
+          "totalScore": 5,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJl_I4SgC94jAROT1k-0NF96M",
+          "categories": [
+            "Coffee shop"
+          ],
+          "fid": "0x30e2bd004a38f297:0xa3f74543fb643d39",
+          "cid": "11814988305712561465",
+          "reviewsCount": 3,
+          "imagesCount": 13,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:18.174Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "6 AM to 6 PM"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "6 AM to 6 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "6 AM to 6 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "6 AM to 6 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "6 AM to 6 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "6 AM to 6 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "6 AM to 6 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=%E0%B8%9E%E0%B8%B1%E0%B8%99%E0%B8%98%E0%B8%B8%E0%B9%8C%E0%B9%84%E0%B8%97%E0%B8%A2%20%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B9%80%E0%B8%A5%E0%B8%B5%E0%B8%A2%E0%B8%9A%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%A0%E0%B8%B2%E0%B8%A9%E0%B8%B5%E0%B8%9D%E0%B8%B1%E0%B9%88%E0%B8%87%E0%B9%83%E0%B8%95%E0%B9%89&query_place_id=ChIJl_I4SgC94jAROT1k-0NF96M",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 15,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nr2kBdC5BQG7UEI730NnTfMzY8kl2hbsBzlcHFrtXSbuiExFc1Vk_AaIf4QF2k-9cdhctd4HR1gRsv2UKm4evvKLIIMpXIMA8QVOvEQA6Ssu9X9Gxn7fsHg-zqOF2UNTOyUeW8m=w408-h544-k-no",
+          "kgmid": "/g/11w9vjvtvc",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "Takeaway Slow Bar Coffee",
+          "price": null,
+          "categoryName": "Coffee shop",
+          "address": "88 Wong Sukit Alley, Khwaeng Nong Khaem, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "88 Wong Sukit Alley",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "website": "http://www.takeaway.in.th/",
+          "phone": "+66 65 619 8228",
+          "phoneUnformatted": "+66656198228",
+          "claimThisBusiness": false,
+          "location": {
+            "lat": 13.678713,
+            "lng": 100.3660653
+          },
+          "totalScore": 4.9,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJpSiXTem94jARTFcBABziHPo",
+          "categories": [
+            "Coffee shop"
+          ],
+          "fid": "0x30e2bde94d9728a5:0xfa1ce21c0001574c",
+          "cid": "18022528418716931916",
+          "reviewsCount": 29,
+          "reviewsDistribution": {
+            "oneStar": 0,
+            "twoStar": 0,
+            "threeStar": 0,
+            "fourStar": 2,
+            "fiveStar": 27
+          },
+          "imagesCount": 98,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:19.090Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "9 AM to 4 PM"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "9 AM to 4 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "Closed"
+            },
+            {
+              "day": "Thursday",
+              "hours": "9 AM to 4 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "9 AM to 5 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "9 AM to 5 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "9 AM to 5 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Curbside pickup": true
+              },
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              }
+            ],
+            "Amenities": [
+              {
+                "Restroom": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              }
+            ],
+            "Crowd": [
+              {
+                "Family-friendly": true
+              },
+              {
+                "LGBTQ+ friendly": true
+              },
+              {
+                "Transgender safespace": true
+              }
+            ],
+            "Planning": [
+              {
+                "Accepts reservations": true
+              }
+            ],
+            "Payments": [
+              {
+                "NFC mobile payments": true
+              }
+            ],
+            "Parking": [
+              {
+                "Free parking garage": true
+              },
+              {
+                "Free parking lot": true
+              },
+              {
+                "Free street parking": true
+              }
+            ],
+            "Pets": [
+              {
+                "Dogs allowed": true
+              },
+              {
+                "Dogs allowed outside": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=Takeaway%20Slow%20Bar%20Coffee&query_place_id=ChIJpSiXTem94jARTFcBABziHPo",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 26,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/p/AF1QipOmOXuvm1foVgx5Dup9zYq22rFHCg9CeDUF-Odq=w408-h408-k-no",
+          "kgmid": "/g/11rq1l_9q7",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "Café Amazon สาขา เพชรเกษม 81",
+          "price": "฿1–100",
+          "categoryName": "Cafe",
+          "address": "238/2 Soi 81, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "238/2 Soi 81",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "website": "https://www.cafe-amazon.com/",
+          "claimThisBusiness": true,
+          "location": {
+            "lat": 13.6866915,
+            "lng": 100.3436104
+          },
+          "totalScore": 4.5,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJpapdjJS_4jARWrLT5vMuuyM",
+          "categories": [
+            "Cafe"
+          ],
+          "fid": "0x30e2bf948c5daaa5:0x23bb2ef3e6d3b25a",
+          "cid": "2574703237056934490",
+          "reviewsCount": 67,
+          "imagesCount": 12,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:18.173Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "6 AM to 9 PM"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "6 AM to 9 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "6 AM to 9 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "6 AM to 9 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "6 AM to 9 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "6 AM to 9 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "6 AM to 9 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Outdoor seating": true
+              },
+              {
+                "No-contact delivery": true
+              },
+              {
+                "Delivery": true
+              },
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great dessert": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Popular for": [
+              {
+                "Solo dining": true
+              },
+              {
+                "Good for working on laptop": true
+              }
+            ],
+            "Accessibility": [
+              {
+                "Wheelchair accessible entrance": true
+              },
+              {
+                "Wheelchair accessible parking lot": true
+              },
+              {
+                "Wheelchair accessible restroom": true
+              },
+              {
+                "Wheelchair accessible seating": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              }
+            ],
+            "Dining options": [
+              {
+                "Dessert": true
+              },
+              {
+                "Seating": true
+              }
+            ],
+            "Amenities": [
+              {
+                "Restroom": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              },
+              {
+                "Trendy": true
+              }
+            ],
+            "Crowd": [
+              {
+                "Groups": true
+              },
+              {
+                "Tourists": true
+              }
+            ],
+            "Children": [
+              {
+                "Good for kids": true
+              },
+              {
+                "Kids' menu": true
+              }
+            ],
+            "Parking": [
+              {
+                "Free parking lot": true
+              },
+              {
+                "Free street parking": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=Caf%C3%A9%20Amazon%20%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%20%E0%B9%80%E0%B8%9E%E0%B8%8A%E0%B8%A3%E0%B9%80%E0%B8%81%E0%B8%A9%E0%B8%A1%2081&query_place_id=ChIJpapdjJS_4jARWrLT5vMuuyM",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 12,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4no8dJhUbyTBDOsovQyghFjUb6zoEGG7ZEWCkNlGke6wtHfKcEnyC17qJpHWT7kXsHhl4IB4pkIyCwYglgHusGMey1hd4rOlDEJMiirfHpTZUzgjh-QvYalY-Kw02vKMaPxezHMMGA=w408-h306-k-no",
+          "kgmid": "/g/11h4_fs2wm",
+          "domain": "cafe-amazon.com",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "Nuna Korean Cafe",
+          "price": "฿1–100",
+          "categoryName": "Coffee shop",
+          "address": "6, 8 Ma Charoen Road, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "6, 8 Ma Charoen Road",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "phone": "+66 99 059 1263",
+          "phoneUnformatted": "+66990591263",
+          "claimThisBusiness": true,
+          "location": {
+            "lat": 13.6905666,
+            "lng": 100.3421181
+          },
+          "totalScore": 5,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJb1Q8IQC_4jARa3G8qS2-ru0",
+          "categories": [
+            "Coffee shop"
+          ],
+          "fid": "0x30e2bf00213c546f:0xedaebe2da9bc716b",
+          "cid": "17126835536267080043",
+          "reviewsCount": 10,
+          "imagesCount": 22,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:18.173Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "Closed"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "9:30 AM to 8 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "9:30 AM to 8 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "9:30 AM to 8 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "9:30 AM to 8 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "9:30 AM to 8 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "9:30 AM to 8 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Popular for": [
+              {
+                "Solo dining": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              }
+            ],
+            "Amenities": [
+              {
+                "Restroom": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              }
+            ],
+            "Crowd": [
+              {
+                "Groups": true
+              }
+            ],
+            "Parking": [
+              {
+                "Free parking lot": true
+              },
+              {
+                "Usually plenty of parking": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=Nuna%20Korean%20Cafe&query_place_id=ChIJb1Q8IQC_4jARa3G8qS2-ru0",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 9,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrSlWhzp3kbR2p1Dq8U8Xb3RIsQNPd_0Opzjx02-Ys4SRnhQOWUbgSRwapdtd7m3Fc9bbEO0YdvY8cC6nk4LADyt8YrgwIFTRPtjq-gRLDljn1ZIw2zqFl7EvCub_-m46Myqrjg-g=w426-h240-k-no",
+          "kgmid": "/g/11w2ktb39m",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "ไอดิน-กลิ่นรัก Cafe'",
+          "price": null,
+          "categoryName": "Coffee shop",
+          "address": "Sawatdikan 2 Soi 1, Khwaeng Nong Khaem, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "Sawatdikan 2 Soi 1",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "phone": "+66 65 692 8263",
+          "phoneUnformatted": "+66656928263",
+          "claimThisBusiness": false,
+          "location": {
+            "lat": 13.6948503,
+            "lng": 100.3566092
+          },
+          "totalScore": 5,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJ54b4EAC94jARuzY0wl7z69o",
+          "categories": [
+            "Coffee shop"
+          ],
+          "fid": "0x30e2bd0010f886e7:0xdaebf35ec23436bb",
+          "cid": "15774969708105971387",
+          "reviewsCount": 25,
+          "imagesCount": 223,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:18.173Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "Closed"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "8:30 AM to 6 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "8:30 AM to 6 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "8:30 AM to 6 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "8:30 AM to 6 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "7 AM to 6 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "7 AM to 6 PM"
+            }
+          ],
+          "additionalOpeningHours": {
+            "Takeout": [
+              {
+                "day": "Monday",
+                "hours": "Closed"
+              },
+              {
+                "day": "Tuesday",
+                "hours": "9 AM–5 PM"
+              },
+              {
+                "day": "Wednesday",
+                "hours": "9 AM–5 PM"
+              },
+              {
+                "day": "Thursday",
+                "hours": "9 AM–5 PM"
+              },
+              {
+                "day": "Friday",
+                "hours": "9 AM–5 PM"
+              },
+              {
+                "day": "Saturday",
+                "hours": "9 AM–5 PM"
+              },
+              {
+                "day": "Sunday",
+                "hours": "9 AM–5 PM"
+              }
+            ]
+          },
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Curbside pickup": true
+              },
+              {
+                "Delivery": true
+              },
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great dessert": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Popular for": [
+              {
+                "Solo dining": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              }
+            ],
+            "Dining options": [
+              {
+                "Dessert": true
+              }
+            ],
+            "Amenities": [
+              {
+                "Restroom": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              },
+              {
+                "Quiet": true
+              },
+              {
+                "Trendy": true
+              }
+            ],
+            "Crowd": [
+              {
+                "College students": true
+              },
+              {
+                "Groups": true
+              },
+              {
+                "Tourists": true
+              }
+            ],
+            "Children": [
+              {
+                "Good for kids": true
+              },
+              {
+                "Kids' menu": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=%E0%B9%84%E0%B8%AD%E0%B8%94%E0%B8%B4%E0%B8%99-%E0%B8%81%E0%B8%A5%E0%B8%B4%E0%B9%88%E0%B8%99%E0%B8%A3%E0%B8%B1%E0%B8%81%20Cafe'&query_place_id=ChIJ54b4EAC94jARuzY0wl7z69o",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 8,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/p/AF1QipOJGWWcCYNlrirdleVoCaAVemtydxLb6kPmXO8=w408-h544-k-no",
+          "kgmid": "/g/11w30_sn7x",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "Nhom nom cafe'",
+          "price": null,
+          "categoryName": "Cafe",
+          "address": "17 30 Thanon Liap Khlong Phasi Charoen Fang Nuea, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "17 30 Thanon Liap Khlong Phasi Charoen Fang Nuea",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "phone": "+66 64 069 6245",
+          "phoneUnformatted": "+66640696245",
+          "claimThisBusiness": true,
+          "location": {
+            "lat": 13.6808174,
+            "lng": 100.3437531
+          },
+          "totalScore": 5,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJJweTovu_4jARH_9Bx0tGAYY",
+          "categories": [
+            "Cafe"
+          ],
+          "fid": "0x30e2bffba2930727:0x8601464bc741ff1f",
+          "cid": "9656076367338536735",
+          "reviewsCount": 2,
+          "imagesCount": 7,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:18.173Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "10 AM to 8 PM"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "10 AM to 8 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "10 AM to 8 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "10 AM to 8 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "10 AM to 8 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "10 AM to 8 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "10 AM to 8 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Delivery": true
+              },
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great dessert": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Popular for": [
+              {
+                "Solo dining": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              },
+              {
+                "Small plates": true
+              }
+            ],
+            "Dining options": [
+              {
+                "Breakfast": true
+              },
+              {
+                "Lunch": true
+              },
+              {
+                "Dessert": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              },
+              {
+                "Trendy": true
+              }
+            ],
+            "Crowd": [
+              {
+                "Groups": true
+              },
+              {
+                "Tourists": true
+              }
+            ],
+            "Children": [
+              {
+                "Good for kids": true
+              },
+              {
+                "Kids' menu": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=Nhom%20nom%20cafe'&query_place_id=ChIJJweTovu_4jARH_9Bx0tGAYY",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 7,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqW2DRVuMT859F7F5ur9Iy9lBtWa7TL2sFlx19bIBj7gnmd6rpH4lgGNDVPF-4Q2RGWVWPR0xlUjYGo77GZREUZ2LlervFuOXyHKlRJp1FsWjFiRYLrXK9AKWglaG_C6B5zmJI=w413-h240-k-no",
+          "kgmid": "/g/11lg0sl3d9",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "On Top Cafe'",
+          "price": null,
+          "categoryName": "Cafe",
+          "address": "Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": null,
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "website": "http://www.otod.biz/",
+          "phone": "+66 86 768 3622",
+          "phoneUnformatted": "+66867683622",
+          "claimThisBusiness": false,
+          "location": {
+            "lat": 13.6820623,
+            "lng": 100.3453108
+          },
+          "totalScore": 5,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJgRiqJ8-_4jARBAcg0-11B24",
+          "categories": [
+            "Cafe"
+          ],
+          "fid": "0x30e2bfcf27aa1881:0x6e0775edd3200704",
+          "cid": "7928435333318838020",
+          "reviewsCount": 2,
+          "imagesCount": 71,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:18.173Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "9 AM to 9 PM"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "9 AM to 9 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "9 AM to 9 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "9 AM to 9 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "9 AM to 9 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "9 AM to 9 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "10 AM to 9 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "No-contact delivery": true
+              },
+              {
+                "Delivery": true
+              },
+              {
+                "Drive-through": true
+              },
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Popular for": [
+              {
+                "Solo dining": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              }
+            ],
+            "Amenities": [
+              {
+                "Restroom": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              }
+            ],
+            "Crowd": [
+              {
+                "Groups": true
+              }
+            ],
+            "Planning": [
+              {
+                "Accepts reservations": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=On%20Top%20Cafe'&query_place_id=ChIJgRiqJ8-_4jARBAcg0-11B24",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 11,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nr1STILyfLEIehSf7s8mxJbkOSkIAwxcriFCpaHrTrP83QnTosq9qLiJZE1UySly53bPDpSKfw-_IexiGM8YWEg8kZAhCOrlqjtBYsqOmrI84VVoNlzUzw7x8nJ5poA88vrDtD9Yw=w408-h306-k-no",
+          "kgmid": "/g/11s0wyxmct",
+          "domain": "otod.biz",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [
+            "02-029120"
+          ],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "Sunday Morning-Cafe Nongkhaem",
+          "price": "฿100–200",
+          "categoryName": "Coffee shop",
+          "address": "Thanon Liap Khlong Phasi Charoen Fang Tai, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "Thanon Liap Khlong Phasi Charoen Fang Tai",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "website": "https://www.facebook.com/sundaymorningcafenk/",
+          "phone": "+66 92 852 0084",
+          "phoneUnformatted": "+66928520084",
+          "claimThisBusiness": false,
+          "location": {
+            "lat": 13.6804662,
+            "lng": 100.3539348
+          },
+          "totalScore": 4.6,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJyWhLwOO94jARcTsqNroefhU",
+          "categories": [
+            "Coffee shop"
+          ],
+          "fid": "0x30e2bde3c04b68c9:0x157e1eba362a3b71",
+          "cid": "1548709106983517041",
+          "reviewsCount": 166,
+          "imagesCount": 485,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:18.172Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "Closed"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "Closed"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "Closed"
+            },
+            {
+              "day": "Thursday",
+              "hours": "9 AM to 5 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "9 AM to 3 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "9 AM to 5 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "9 AM to 5 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Outdoor seating": true
+              },
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great dessert": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Popular for": [
+              {
+                "Solo dining": true
+              },
+              {
+                "Good for working on laptop": true
+              }
+            ],
+            "Accessibility": [
+              {
+                "Wheelchair accessible entrance": false
+              },
+              {
+                "Wheelchair accessible parking lot": false
+              },
+              {
+                "Wheelchair accessible seating": false
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              },
+              {
+                "Small plates": true
+              }
+            ],
+            "Dining options": [
+              {
+                "Dessert": true
+              },
+              {
+                "Seating": true
+              }
+            ],
+            "Amenities": [
+              {
+                "Restroom": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              },
+              {
+                "Quiet": true
+              },
+              {
+                "Trendy": true
+              }
+            ],
+            "Crowd": [
+              {
+                "Groups": true
+              }
+            ],
+            "Children": [
+              {
+                "Good for kids": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=Sunday%20Morning-Cafe%20Nongkhaem&query_place_id=ChIJyWhLwOO94jARcTsqNroefhU",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 5,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4np38whNOcEJs0sOktftihf6X6CaAewNuvqXRRVmIwCR0yCcxKMnymYS3pHWFCq7lHlFLS3530FuKhUx1LiRB2EA17i8jwwBcUr9Sb4XV-qTDdnJtNlRYuTOB9of_jGpnIlMacCm=w408-h544-k-no",
+          "kgmid": "/g/11bvvyjdvf",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "Nap's coffee x Nong Khaem",
+          "price": "฿1–100",
+          "categoryName": "Coffee shop",
+          "address": "529 Thanon Liap Khlong Phasi Charoen Fang Nuea 30, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "529 Thanon Liap Khlong Phasi Charoen Fang Nuea 30",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "phone": "+66 88 651 6642",
+          "phoneUnformatted": "+66886516642",
+          "claimThisBusiness": false,
+          "location": {
+            "lat": 13.6815956,
+            "lng": 100.3466278
+          },
+          "totalScore": 4.8,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJwdQBfue_4jARMXeTeMCipBI",
+          "categories": [
+            "Coffee shop"
+          ],
+          "fid": "0x30e2bfe77e01d4c1:0x12a4a2c078937731",
+          "cid": "1343377536403601201",
+          "reviewsCount": 66,
+          "imagesCount": 143,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:18.173Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "7 AM to 4 PM"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "7 AM to 4 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "7 AM to 4 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "7 AM to 4 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "7 AM to 4 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "7 AM to 5 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "7 AM to 5 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Curbside pickup": true
+              },
+              {
+                "No-contact delivery": true
+              },
+              {
+                "Delivery": true
+              },
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Popular for": [
+              {
+                "Good for working on laptop": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=Nap's%20coffee%20x%20Nong%20Khaem&query_place_id=ChIJwdQBfue_4jARMXeTeMCipBI",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 6,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4npJKba01AKpgoQr4NT4lcXzRTp-VN0wAlC7B31B2NiXjzguiNh-b67MVGt8RzT2qc5aAH7SaQw4S-I8DgskmmM85HZAX_d8aidW3cr26KRjN2t_UKcPS1L_o6dpFb6K5lUh1-Cn=w408-h277-k-no",
+          "kgmid": "/g/11t5wl_rsm",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "COFFiTi Cafe",
+          "price": "฿1–100",
+          "categoryName": "Coffee shop",
+          "address": "24 68 Thanon Liap Khlong Phasi Charoen Fang Tai, Khwaeng Nong Khaem, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "24 68 Thanon Liap Khlong Phasi Charoen Fang Tai",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "website": "https://www.facebook.com/Coffiticafe?mibextid=LQQJ4d",
+          "phone": "+66 85 364 9446",
+          "phoneUnformatted": "+66853649446",
+          "claimThisBusiness": false,
+          "location": {
+            "lat": 13.6766271,
+            "lng": 100.3466746
+          },
+          "totalScore": 5,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJt--ZmFK94jARk14J7tjHf5M",
+          "categories": [
+            "Coffee shop"
+          ],
+          "fid": "0x30e2bd529899efb7:0x937fc7d8ee095e93",
+          "cid": "10628433380138114707",
+          "reviewsCount": 57,
+          "imagesCount": 225,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:18.172Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "Closed"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "7:30 AM to 4 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "7:30 AM to 4 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "7:30 AM to 4 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "7:30 AM to 4 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "8 AM to 4 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "8 AM to 4 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "No-contact delivery": true
+              },
+              {
+                "Delivery": true
+              },
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great dessert": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Popular for": [
+              {
+                "Solo dining": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              }
+            ],
+            "Dining options": [
+              {
+                "Dessert": true
+              },
+              {
+                "Seating": true
+              }
+            ],
+            "Amenities": [
+              {
+                "Restroom": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              },
+              {
+                "Trendy": true
+              }
+            ],
+            "Parking": [
+              {
+                "Free parking lot": true
+              },
+              {
+                "Free street parking": true
+              },
+              {
+                "Usually plenty of parking": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=COFFiTi%20Cafe&query_place_id=ChIJt--ZmFK94jARk14J7tjHf5M",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 4,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqFza6b_vWpNOrTEy-dVVFw6rGtPo7JSRSssYEGLK0-y1sIaq1Kt9NCU34h7FuB25ZYRKxVHVOAb_je6pgA9EJTpghG8sWtehnKaFYZLwbFSGx7l2uRnyFuFtZeidwW7d2F5t53q033Qzg=w408-h306-k-no",
+          "kgmid": "/g/11kpk6l513",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "FIRST CRACK COFFEE - HOME CAFÉ",
+          "price": "฿100–200",
+          "categoryName": "Cafe",
+          "address": "เซเรนิตี้ 12/13 ซอย3 หมู่บ้านพฤกษาทาวน์ หนองแขม Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "หนองแขม",
+          "street": "เซเรนิตี้ 12/13 ซอย3 หมู่บ้านพฤกษาทาวน์",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "phone": "+66 86 403 4194",
+          "phoneUnformatted": "+66864034194",
+          "claimThisBusiness": false,
+          "location": {
+            "lat": 13.6833594,
+            "lng": 100.3412285
+          },
+          "totalScore": 4.9,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJZ9q2fDmX4jARf9ka99jSEN4",
+          "categories": [
+            "Cafe",
+            "Coffee shop"
+          ],
+          "fid": "0x30e297397cb6da67:0xde10d2d8f71ad97f",
+          "cid": "16001521305347873151",
+          "reviewsCount": 51,
+          "imagesCount": 109,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:18.169Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "8 AM to 4 PM"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "8 AM to 4 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "8 AM to 4 PM"
+            },
+            {
+              "day": "Thursday",
+              "hours": "8 AM to 4 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "8 AM to 4 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "8 AM to 4 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "8 AM to 4 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "Outdoor seating": true
+              },
+              {
+                "Curbside pickup": true
+              },
+              {
+                "No-contact delivery": true
+              },
+              {
+                "Delivery": true
+              },
+              {
+                "Onsite services": true
+              },
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great dessert": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Popular for": [
+              {
+                "Solo dining": true
+              },
+              {
+                "Good for working on laptop": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              }
+            ],
+            "Dining options": [
+              {
+                "Dessert": true
+              },
+              {
+                "Seating": true
+              }
+            ],
+            "Amenities": [
+              {
+                "Restroom": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              },
+              {
+                "Trendy": true
+              }
+            ],
+            "Parking": [
+              {
+                "Free parking lot": true
+              },
+              {
+                "Free street parking": true
+              },
+              {
+                "On-site parking": true
+              }
+            ],
+            "Pets": [
+              {
+                "Dogs allowed": true
+              },
+              {
+                "Dogs allowed outside": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=FIRST%20CRACK%20COFFEE%20-%20HOME%20CAF%C3%89&query_place_id=ChIJZ9q2fDmX4jARf9ka99jSEN4",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 1,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/p/AF1QipP00GA0IMykfaOt2cv3XLgZhNZarS8QjyjeGSlb=w408-h408-k-no",
+          "kgmid": "/g/11q8w2l4t0",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      },
+      {
+        "json": {
+          "title": "Daughter & Son Cafe",
+          "price": "฿100–200",
+          "categoryName": "Coffee shop",
+          "address": "28 9 Phet Kasem 81 Rd, Nong Khaem, Bangkok 10160, Thailand",
+          "neighborhood": "Nong Khaem",
+          "street": "28 9 Phet Kasem 81 Rd",
+          "city": "Nong Khaem",
+          "postalCode": "10160",
+          "state": "Bangkok",
+          "countryCode": "TH",
+          "website": "https://www.instagram.com/daughter.andson/",
+          "phone": "+66 88 793 9592",
+          "phoneUnformatted": "+66887939592",
+          "claimThisBusiness": false,
+          "location": {
+            "lat": 13.6852393,
+            "lng": 100.3433802
+          },
+          "totalScore": 5,
+          "permanentlyClosed": false,
+          "temporarilyClosed": false,
+          "placeId": "ChIJ3bfyeom_4jARssIvJxZDxug",
+          "categories": [
+            "Coffee shop",
+            "Bagel shop"
+          ],
+          "fid": "0x30e2bf897af2b7dd:0xe8c64316272fc2b2",
+          "cid": "16773167624613774002",
+          "reviewsCount": 81,
+          "imagesCount": 243,
+          "imageCategories": [],
+          "scrapedAt": "2025-06-05T19:01:18.172Z",
+          "googleFoodUrl": null,
+          "hotelAds": [],
+          "openingHours": [
+            {
+              "day": "Monday",
+              "hours": "7 AM to 8 PM"
+            },
+            {
+              "day": "Tuesday",
+              "hours": "7 AM to 8 PM"
+            },
+            {
+              "day": "Wednesday",
+              "hours": "Closed"
+            },
+            {
+              "day": "Thursday",
+              "hours": "7 AM to 8 PM"
+            },
+            {
+              "day": "Friday",
+              "hours": "7 AM to 8 PM"
+            },
+            {
+              "day": "Saturday",
+              "hours": "7 AM to 8 PM"
+            },
+            {
+              "day": "Sunday",
+              "hours": "7 AM to 8 PM"
+            }
+          ],
+          "peopleAlsoSearch": [],
+          "placesTags": [],
+          "reviewsTags": [],
+          "additionalInfo": {
+            "Service options": [
+              {
+                "No-contact delivery": true
+              },
+              {
+                "Delivery": true
+              },
+              {
+                "Takeout": true
+              },
+              {
+                "Dine-in": true
+              }
+            ],
+            "Highlights": [
+              {
+                "Great coffee": true
+              },
+              {
+                "Great dessert": true
+              },
+              {
+                "Great tea selection": true
+              }
+            ],
+            "Popular for": [
+              {
+                "Solo dining": true
+              },
+              {
+                "Good for working on laptop": true
+              }
+            ],
+            "Offerings": [
+              {
+                "Coffee": true
+              },
+              {
+                "Small plates": true
+              }
+            ],
+            "Dining options": [
+              {
+                "Breakfast": true
+              },
+              {
+                "Brunch": true
+              },
+              {
+                "Lunch": true
+              },
+              {
+                "Dinner": true
+              },
+              {
+                "Dessert": true
+              },
+              {
+                "Seating": true
+              }
+            ],
+            "Amenities": [
+              {
+                "Restroom": true
+              },
+              {
+                "Wi-Fi": true
+              },
+              {
+                "Free Wi-Fi": true
+              }
+            ],
+            "Atmosphere": [
+              {
+                "Casual": true
+              },
+              {
+                "Cozy": true
+              },
+              {
+                "Quiet": true
+              },
+              {
+                "Trendy": true
+              }
+            ],
+            "Crowd": [
+              {
+                "Groups": true
+              }
+            ],
+            "Children": [
+              {
+                "Good for kids": true
+              }
+            ],
+            "Parking": [
+              {
+                "Free parking lot": true
+              },
+              {
+                "Usually plenty of parking": true
+              }
+            ]
+          },
+          "gasPrices": [],
+          "url": "https://www.google.com/maps/search/?api=1&query=Daughter%20%26%20Son%20Cafe&query_place_id=ChIJ3bfyeom_4jARssIvJxZDxug",
+          "searchPageUrl": "https://www.google.com/maps/search/cafe/@13.687204282609544,100.34199533945856,15z?hl=en",
+          "searchString": "cafe",
+          "language": "en",
+          "rank": 3,
+          "isAdvertisement": false,
+          "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nonc-yinR317QAINsywtzaPEUhtyvMOuY3Cva6DIb5Wyvr4KoeU8oNqNlPT4t7O2FQCh9_TQaa0Y4Zc3dghbTUbLAMLiF3f1KrVl4MfYeUwjsatArpizLY6WZMzVOLM0sgM81QA=w408-h544-k-no",
+          "kgmid": "/g/11vs7hgq3b",
+          "emails": [],
+          "phones": [],
+          "phonesUncertain": [],
+          "linkedIns": [],
+          "twitters": [],
+          "instagrams": [],
+          "facebooks": [],
+          "youtubes": [],
+          "tiktoks": [],
+          "pinterests": [],
+          "discords": [],
+          "reviews": null,
+          "leadsEnrichment": []
+        }
+      }
+    ],
+    "Split Out": [
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:19.993Z",
+          "title": "LittleBoxCafe",
+          "reviewsDistribution.fiveStar": 8,
+          "reviewsCount": 8,
+          "openingHours[6].hours": "8 AM to 5 PM",
+          "address": "125/139 ม.ตะวันทอง2 Thanon Liap Khlong Phasi Charoen Fang Tai, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 86 381 8479",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=LittleBoxCafe&query_place_id=ChIJfWHSDw694jAR4-ntfjcUeKY"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:19.993Z",
+          "title": "ต้นสน ลอฟต์",
+          "reviewsDistribution.fiveStar": 14,
+          "reviewsCount": 31,
+          "openingHours[6].hours": "8 AM to 4 PM",
+          "address": "M8HX+WRJ, Khwaeng Nong Khaem, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 89 982 6090",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=%E0%B8%95%E0%B9%89%E0%B8%99%E0%B8%AA%E0%B8%99%20%E0%B8%A5%E0%B8%AD%E0%B8%9F%E0%B8%95%E0%B9%8C&query_place_id=ChIJ15GhRmu_4jARGPlMOia-TSI"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:19.993Z",
+          "title": "Mellow Coffee House",
+          "reviewsDistribution.fiveStar": 1,
+          "reviewsCount": 1,
+          "openingHours[6].hours": "6 AM to 10 PM",
+          "address": "60/97 Soi 10, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 91 856 8732",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=Mellow%20Coffee%20House&query_place_id=ChIJP6AVIgC94jAR4IDlej9x4ew"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:19.091Z",
+          "title": "โกปี๊ สยาม เพชรเกษม 81",
+          "reviewsDistribution.fiveStar": 1,
+          "reviewsCount": 1,
+          "openingHours[6].hours": "9 AM to 7:45 PM",
+          "address": "152 Bang Bon 5 Rd, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 86 908 6888",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=%E0%B9%82%E0%B8%81%E0%B8%9B%E0%B8%B5%E0%B9%8A%20%E0%B8%AA%E0%B8%A2%E0%B8%B2%E0%B8%A1%20%E0%B9%80%E0%B8%9E%E0%B8%8A%E0%B8%A3%E0%B9%80%E0%B8%81%E0%B8%A9%E0%B8%A1%2081&query_place_id=ChIJhfD1DTu_4jAR99fLmvq505k"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:19.091Z",
+          "title": "2am homeCafe",
+          "reviewsDistribution.fiveStar": 26,
+          "reviewsCount": 32,
+          "openingHours[6].hours": "Closed",
+          "address": "28/108 Phet Kasem, Nong Khang Phlu, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 90 975 3248",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=2am%20homeCafe&query_place_id=ChIJwR-uHJWX4jART7vjcU28SWI"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:19.091Z",
+          "title": "HANA Coffee & Cactus Garden",
+          "reviewsDistribution.fiveStar": 26,
+          "reviewsCount": 26,
+          "openingHours[6].hours": "8:30 AM to 3 PM",
+          "address": "HANA Coffee & Cactus Garden เพชรเกษม77 Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 86 663 6792",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=HANA%20Coffee%20%26%20Cactus%20Garden&query_place_id=ChIJB6mqW_S94jAR-tMabd7P0as"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:19.090Z",
+          "title": "Scooty Coffee : Street slow bar",
+          "reviewsDistribution.fiveStar": 8,
+          "reviewsCount": 8,
+          "openingHours[6].hours": "10:30 AM to 4:30 PM",
+          "address": "100 Thanon Liap Khlong Phasi Charoen Fang Nuea, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 95 538 5858",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=Scooty%20Coffee%20%3A%20Street%20slow%20bar&query_place_id=ChIJzTobnFi94jARoFfKayF_ZNY"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:19.090Z",
+          "title": "BenCoffee",
+          "reviewsDistribution.fiveStar": 39,
+          "reviewsCount": 44,
+          "openingHours[6].hours": "7:30 AM to 6 PM",
+          "address": "976 Phet Kasem 81 Rd, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 92 299 7962",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=BenCoffee&query_place_id=ChIJRVib4hi_4jARUP4QE7IRvUA"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:18.174Z",
+          "title": "2wiceaday",
+          "reviewsCount": 11,
+          "openingHours[6].hours": "11 AM to 8 PM",
+          "address": "28/92 ถนนมาเจริญ (ซ.เพชรเกษม81) Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 89 776 2595",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=2wiceaday&query_place_id=ChIJtbMH6ky_4jAR8caR7_kIZYQ"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:18.174Z",
+          "title": "Natchira Café since 2006",
+          "reviewsCount": 31,
+          "openingHours[6].hours": "7 AM to 5 PM",
+          "address": "361 Phet Kasem 81 Rd, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 82 662 9789",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=Natchira%20Caf%C3%A9%20since%202006&query_place_id=ChIJn8mYcgu-4jARH6T-S5RqM9g"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:18.174Z",
+          "title": "EDEN'S DIARY Land of Healthy Food and Drink",
+          "reviewsCount": 1,
+          "openingHours[6].hours": "6 AM to 9 PM",
+          "address": "Macharoen, Ma Charoen Road, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 88 995 5945",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=EDEN'S%20DIARY%20Land%20of%20Healthy%20Food%20and%20Drink&query_place_id=ChIJtc30HLm_4jARYbcPK184mDg"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:18.174Z",
+          "title": "โรตีปังปิ้ง เดอะคาเฟ่ (Original) | Rotipangping the CAFE’",
+          "reviewsCount": 24,
+          "openingHours[6].hours": "11 AM to 10 PM",
+          "address": "28/34 โครงการสิริ, Phet Kasem 81 Rd, หนองแขม, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 98 226 2369",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=%E0%B9%82%E0%B8%A3%E0%B8%95%E0%B8%B5%E0%B8%9B%E0%B8%B1%E0%B8%87%E0%B8%9B%E0%B8%B4%E0%B9%89%E0%B8%87%20%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%B0%E0%B8%84%E0%B8%B2%E0%B9%80%E0%B8%9F%E0%B9%88%20(Original)%20%7C%20Rotipangping%20the%20CAFE%E2%80%99&query_place_id=ChIJ20AMqku_4jAReuUuJN_vVL0"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:18.174Z",
+          "title": "DIN Cafe' ดินคาเฟ่",
+          "reviewsCount": 3,
+          "openingHours[6].hours": "9 AM to 7 PM",
+          "address": "95 Phet Kasem 81, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=DIN%20Cafe'%20%E0%B8%94%E0%B8%B4%E0%B8%99%E0%B8%84%E0%B8%B2%E0%B9%80%E0%B8%9F%E0%B9%88&query_place_id=ChIJ7-KbTYa_4jARoQWk4NnqvTo"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:18.174Z",
+          "title": "พันธุ์ไทย สาขาเลียบคลองภาษีฝั่งใต้",
+          "reviewsCount": 3,
+          "openingHours[6].hours": "6 AM to 6 PM",
+          "address": "6 Heha Alley, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 62 197 8712",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=%E0%B8%9E%E0%B8%B1%E0%B8%99%E0%B8%98%E0%B8%B8%E0%B9%8C%E0%B9%84%E0%B8%97%E0%B8%A2%20%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B9%80%E0%B8%A5%E0%B8%B5%E0%B8%A2%E0%B8%9A%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%A0%E0%B8%B2%E0%B8%A9%E0%B8%B5%E0%B8%9D%E0%B8%B1%E0%B9%88%E0%B8%87%E0%B9%83%E0%B8%95%E0%B9%89&query_place_id=ChIJl_I4SgC94jAROT1k-0NF96M"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:19.090Z",
+          "title": "Takeaway Slow Bar Coffee",
+          "reviewsDistribution.fiveStar": 27,
+          "reviewsCount": 29,
+          "openingHours[6].hours": "9 AM to 5 PM",
+          "address": "88 Wong Sukit Alley, Khwaeng Nong Khaem, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 65 619 8228",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=Takeaway%20Slow%20Bar%20Coffee&query_place_id=ChIJpSiXTem94jARTFcBABziHPo"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:18.173Z",
+          "title": "Café Amazon สาขา เพชรเกษม 81",
+          "reviewsCount": 67,
+          "openingHours[6].hours": "6 AM to 9 PM",
+          "address": "238/2 Soi 81, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=Caf%C3%A9%20Amazon%20%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%20%E0%B9%80%E0%B8%9E%E0%B8%8A%E0%B8%A3%E0%B9%80%E0%B8%81%E0%B8%A9%E0%B8%A1%2081&query_place_id=ChIJpapdjJS_4jARWrLT5vMuuyM"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:18.173Z",
+          "title": "Nuna Korean Cafe",
+          "reviewsCount": 10,
+          "openingHours[6].hours": "9:30 AM to 8 PM",
+          "address": "6, 8 Ma Charoen Road, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 99 059 1263",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=Nuna%20Korean%20Cafe&query_place_id=ChIJb1Q8IQC_4jARa3G8qS2-ru0"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:18.173Z",
+          "title": "ไอดิน-กลิ่นรัก Cafe'",
+          "reviewsCount": 25,
+          "openingHours[6].hours": "7 AM to 6 PM",
+          "address": "Sawatdikan 2 Soi 1, Khwaeng Nong Khaem, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 65 692 8263",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=%E0%B9%84%E0%B8%AD%E0%B8%94%E0%B8%B4%E0%B8%99-%E0%B8%81%E0%B8%A5%E0%B8%B4%E0%B9%88%E0%B8%99%E0%B8%A3%E0%B8%B1%E0%B8%81%20Cafe'&query_place_id=ChIJ54b4EAC94jARuzY0wl7z69o"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:18.173Z",
+          "title": "Nhom nom cafe'",
+          "reviewsCount": 2,
+          "openingHours[6].hours": "10 AM to 8 PM",
+          "address": "17 30 Thanon Liap Khlong Phasi Charoen Fang Nuea, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 64 069 6245",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=Nhom%20nom%20cafe'&query_place_id=ChIJJweTovu_4jARH_9Bx0tGAYY"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:18.173Z",
+          "title": "On Top Cafe'",
+          "reviewsCount": 2,
+          "openingHours[6].hours": "10 AM to 9 PM",
+          "address": "Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 86 768 3622",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=On%20Top%20Cafe'&query_place_id=ChIJgRiqJ8-_4jARBAcg0-11B24"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:18.172Z",
+          "title": "Sunday Morning-Cafe Nongkhaem",
+          "reviewsCount": 166,
+          "openingHours[6].hours": "9 AM to 5 PM",
+          "address": "Thanon Liap Khlong Phasi Charoen Fang Tai, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 92 852 0084",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=Sunday%20Morning-Cafe%20Nongkhaem&query_place_id=ChIJyWhLwOO94jARcTsqNroefhU"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:18.173Z",
+          "title": "Nap's coffee x Nong Khaem",
+          "reviewsCount": 66,
+          "openingHours[6].hours": "7 AM to 5 PM",
+          "address": "529 Thanon Liap Khlong Phasi Charoen Fang Nuea 30, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 88 651 6642",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=Nap's%20coffee%20x%20Nong%20Khaem&query_place_id=ChIJwdQBfue_4jARMXeTeMCipBI"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:18.172Z",
+          "title": "COFFiTi Cafe",
+          "reviewsCount": 57,
+          "openingHours[6].hours": "8 AM to 4 PM",
+          "address": "24 68 Thanon Liap Khlong Phasi Charoen Fang Tai, Khwaeng Nong Khaem, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 85 364 9446",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=COFFiTi%20Cafe&query_place_id=ChIJt--ZmFK94jARk14J7tjHf5M"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:18.169Z",
+          "title": "FIRST CRACK COFFEE - HOME CAFÉ",
+          "reviewsCount": 51,
+          "openingHours[6].hours": "8 AM to 4 PM",
+          "address": "เซเรนิตี้ 12/13 ซอย3 หมู่บ้านพฤกษาทาวน์ หนองแขม Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 86 403 4194",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=FIRST%20CRACK%20COFFEE%20-%20HOME%20CAF%C3%89&query_place_id=ChIJZ9q2fDmX4jARf9ka99jSEN4"
+        }
+      },
+      {
+        "json": {
+          "scrapedAt": "2025-06-05T19:01:18.172Z",
+          "title": "Daughter & Son Cafe",
+          "reviewsCount": 81,
+          "openingHours[6].hours": "7 AM to 8 PM",
+          "address": "28 9 Phet Kasem 81 Rd, Nong Khaem, Bangkok 10160, Thailand",
+          "city": "Nong Khaem",
+          "phone": "+66 88 793 9592",
+          "isAdvertisement": false,
+          "url": "https://www.google.com/maps/search/?api=1&query=Daughter%20%26%20Son%20Cafe&query_place_id=ChIJ3bfyeom_4jARssIvJxZDxug"
+        }
+      }
+    ],
+    "Schedule Trigger": [
+      {
+        "json": {
+          "query": [
+            "cafe",
+            "Cafe"
+          ],
+          "location": [
+            "Bangkok",
+            "BKK",
+            "bkk",
+            "Bangkok, Thailand",
+            "Krung Thep",
+            "Krung Thep Maha Nakhon",
+            "Krung Thep Mahanakhon",
+            "กรุงเทพมหานคร",
+            "กรุงเทพฯ",
+            "กรุงเทพ",
+            "Bangkok Metropolis",
+            "City of Angels",
+            "Bangkok City",
+            "Bangkok TH",
+            "Krung Thep City",
+            "Krop Thip Maha Nakhon",
+            "Krungthep",
+            "Krungthepmahakanakhon"
+          ]
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        []
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f4280a9c-fb80-4860-bda9-fdb6ac3bb5dc",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "529d3bc8e17069f24d690f96cc5ee9be68d03f7366bb114ddb76b5c3e8f797b0"
+  },
+  "id": "iMqgpa3ZyQOfibOR",
+  "tags": []
+}
